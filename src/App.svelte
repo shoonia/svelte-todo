@@ -1,11 +1,13 @@
 <script>
-  export let name;
+  import Todo from "./components/Todo.svelte";
 </script>
 
 <style>
-  h1 {
-    color: purple;
-  }
+
 </style>
 
-<h1>Hello {name}!</h1>
+<header />
+<main>
+  <Todo />
+</main>
+<footer />
