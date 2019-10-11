@@ -38,7 +38,6 @@
     "quotes": [
       "error",
       "single"
-    ],
-    "svelte3/ignore-styles": "off"
+    ]
   }
 }
