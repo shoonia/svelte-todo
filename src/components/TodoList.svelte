@@ -1,15 +1,27 @@
 <script>
-  import TodoItem from "./TodoItem.svelte";
+  import { createEventDispatcher } from 'svelte';
+  import TodoItem from './TodoItem.svelte';
 
   export let items;
-  export let removeItem;
+
+  const dispatch = createEventDispatcher();
+
+  function remove({ target }) {
+    dispatch('remove', target.dataset.id);
+  }
+
+  function edit({ target }) {
+    dispatch('edit', target.dataset.id);
+  }
+
 </script>
 
 <ul>
   {#each items as data}
     <TodoItem
       {data}
-      on:remove={removeItem}
+      {remove}
+      {edit}
     />
   {/each}
 </ul>

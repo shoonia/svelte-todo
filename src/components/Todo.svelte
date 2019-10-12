@@ -1,22 +1,32 @@
 <script>
-  import TodoList from "./TodoList.svelte";
+  import nanoid from 'nanoid/non-secure';
+  import TodoList from './TodoList.svelte';
 
   let items = [];
-  let text = "";
+  let text = '';
   let input = null;
 
   function addItem() {
-    items = items.concat({
-      id: Date.now(),
-      text
-    });
+    const item = {
+      id: nanoid(),
+      edit: false,
+      text,
+    };
 
-    text = "";
+    items = [item].concat(items);
+    text = '';
     input.focus();
   }
 
   function removeItem({ detail: id }) {
     items = items.filter(item => item.id !== id);
+  }
+
+  function editItem({ detail: id }) {
+    const item = items.find((el) => el.id === id);
+
+    item.edit = !item.edit;
+    items = items.slice();
   }
 
   function clickEnter({ keyCode }) {
@@ -48,8 +58,8 @@
   {:else}
     <TodoList
       {items}
-      {removeItem}
+      on:remove={removeItem}
+      on:edit={editItem}
     />
   {/if}
-
 </div>
