@@ -10,18 +10,20 @@
     dispatch('remove', target.dataset.id);
   }
 
-  function edit({ target }) {
-    dispatch('edit', target.dataset.id);
-  }
-
 </script>
 
-<ul>
+<style>
+  .list {
+    list-style: none;
+    padding: 0;
+  }
+</style>
+
+<ul class="list">
   {#each items as data}
     <TodoItem
       {data}
       {remove}
-      {edit}
     />
   {/each}
 </ul>

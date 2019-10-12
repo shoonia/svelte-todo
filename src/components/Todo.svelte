@@ -9,7 +9,6 @@
   function addItem() {
     const item = {
       id: nanoid(),
-      edit: false,
       text,
     };
 
@@ -20,13 +19,6 @@
 
   function removeItem({ detail: id }) {
     items = items.filter(item => item.id !== id);
-  }
-
-  function editItem({ detail: id }) {
-    const item = items.find((el) => el.id === id);
-
-    item.edit = !item.edit;
-    items = items.slice();
   }
 
   function clickEnter({ keyCode }) {
@@ -52,14 +44,12 @@
       Add
     </button>
   </div>
-
   {#if items.length < 1}
     <p>You don't have any tasks</p>
   {:else}
     <TodoList
       {items}
       on:remove={removeItem}
-      on:edit={editItem}
     />
   {/if}
 </div>

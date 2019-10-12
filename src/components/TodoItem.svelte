@@ -1,7 +1,19 @@
 <script>
   export let data;
   export let remove;
-  export let edit;
+
+  let isEdit = false;
+
+  function toggleEdit() {
+    isEdit = !isEdit;
+  }
+
+  function clickEnter({ keyCode }) {
+    if (keyCode === 13) {
+      toggleEdit();
+    }
+  }
+
 </script>
 
 <style>
@@ -12,36 +24,38 @@
 </style>
 
 <li>
-<div class="content">
-  <div>
-    {#if data.edit}
-      <input
-        type="text"
-        bind:value={data.text}
-      />
-    {:else}
-      {data.text}
-    {/if}
-  </div>
-  <div>
-    <button
-      type="button"
-      data-id={data.id}
-      on:click={edit}
-    >
-      {#if data.edit}
-        Save
+  <div class="content">
+    <div>
+      {#if isEdit}
+        <input
+          type="text"
+          bind:value={data.text}
+          on:keypress={clickEnter}
+          autofocus
+        />
       {:else}
-        Edit
+        {data.text}
       {/if}
-    </button>
-    <button 
-      type="button"
-      data-id={data.id}
-      on:click={remove}
-    >
-      Remove
-    </button>
+    </div>
+    <div>
+      <button
+        type="button"
+        data-id={data.id}
+        on:click={toggleEdit}
+      >
+        {#if isEdit}
+          Save
+        {:else}
+          Edit
+        {/if}
+      </button>
+      <button 
+        type="button"
+        data-id={data.id}
+        on:click={remove}
+      >
+        Remove
+      </button>
+    </div>
   </div>
-</div>
 </li>
