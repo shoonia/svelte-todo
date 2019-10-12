@@ -9,21 +9,22 @@ import { terser } from 'rollup-plugin-terser';
 import copy from 'rollup-plugin-copy';
 
 const DIR = path.join(__dirname, 'dist');
-const PRODUCTION = !process.env.ROLLUP_WATCH;
+const IS_DEV = process.env.ROLLUP_WATCH;
 
 fse.emptyDirSync(DIR);
 
-export default {
+const config = {
   input: path.join(__dirname, 'src/main.js'),
   output: {
-    sourcemap: !PRODUCTION,
+    sourcemap: IS_DEV,
     format: 'iife',
     name: 'app',
     file: path.join(DIR, 'bundle.js'),
   },
   plugins: [
     svelte({
-      dev: !PRODUCTION,
+      dev: IS_DEV,
+      emitCss: false,
       css: css => css.write(path.join(DIR, 'bundle.css')),
     }),
     resolve({
@@ -36,11 +37,37 @@ export default {
       ],
     }),
     commonjs(),
-    !PRODUCTION && livereload(DIR),
-    PRODUCTION && terser(),
-  ]
-    .filter(Boolean),
+  ],
   watch: {
     clearScreen: false,
   },
 };
+
+if (IS_DEV) {
+  config.plugins.push(
+    livereload(DIR),
+  );
+} else {
+  config.plugins.push(
+    terser({
+      parse: {
+        ecma: 5,
+      },
+      compress: {
+        ecma: 5,
+        warnings: false,
+        comparisons: false,
+        inline: 2,
+        drop_console: true,
+        passes: 3,
+      },
+      output: {
+        ecma: 5,
+        comments: false,
+        ascii_only: true,
+      },
+    }),
+  );
+}
+
+export default config;
