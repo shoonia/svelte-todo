@@ -1,8 +1,14 @@
 {
   "version": 3,
   "file": "bundle.css",
-  "sources": [],
-  "sourcesContent": [],
+  "sources": [
+    "..\\src\\App.svelte",
+    "..\\src\\components\\TodoItem.svelte"
+  ],
+  "sourcesContent": [
+    "<script>\n  import Todo from './components/Todo.svelte';\n</script>\n\n<style>\n  .main {\n    max-width: 700px;\n    margin: 0 auto;\n  }\n</style>\n\n<header />\n<main class=\"main\">\n  <Todo />\n</main>\n<footer />\n",
+    "<script>\n  export let data;\n  export let remove;\n  export let edit;\n</script>\n\n<style>\n  .content {\n    display: flex;\n    justify-content: space-between;\n  }\n</style>\n\n<li>\n<div class=\"content\">\n  <div>\n    {#if data.edit}\n      <input\n        type=\"text\"\n        bind:value={data.text}\n      />\n    {:else}\n      {data.text}\n    {/if}\n  </div>\n  <div>\n    <button\n      type=\"button\"\n      data-id={data.id}\n      on:click={edit}\n    >\n      {#if data.edit}\n        Save\n      {:else}\n        Edit\n      {/if}\n    </button>\n    <button \n      type=\"button\"\n      data-id={data.id}\n      on:click={remove}\n    >\n      Remove\n    </button>\n  </div>\n</div>\n</li>\n"
+  ],
   "names": [],
-  "mappings": ""
+  "mappings": "AAKE,KAAK,cAAC,CAAC,AACL,SAAS,CAAE,KAAK,CAChB,MAAM,CAAE,CAAC,CAAC,IAAI,AAChB,CAAC;ACDD,QAAQ,cAAC,CAAC,AACR,OAAO,CAAE,IAAI,CACb,eAAe,CAAE,aAAa,AAChC,CAAC"
 }
