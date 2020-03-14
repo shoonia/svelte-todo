@@ -1,9 +1,10 @@
 /* eslint-env node */
 import { join } from 'path';
 import fse from 'fs-extra';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import replace from '@rollup/plugin-replace';
 import svelte from 'rollup-plugin-svelte';
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import copy from 'rollup-plugin-copy';
@@ -69,6 +70,9 @@ export default {
         ecma: 8,
         comments: false,
       },
+    }),
+    replace({
+      'process.env.NODE_ENV': JSON.stringify(IS_DEV ? 'development' : 'production'),
     }),
   ],
 };
