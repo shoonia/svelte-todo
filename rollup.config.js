@@ -1,5 +1,5 @@
 /* eslint-env node */
-import path from 'path';
+import { join } from 'path';
 import fse from 'fs-extra';
 import svelte from 'rollup-plugin-svelte';
 import resolve from 'rollup-plugin-node-resolve';
@@ -8,24 +8,27 @@ import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import copy from 'rollup-plugin-copy';
 
-const DIR = path.join(__dirname, 'dist');
-const IS_DEV = process.env.ROLLUP_WATCH;
+const DIST_DIR = join(__dirname, 'dist');
+const IS_DEV = !!process.env.ROLLUP_WATCH;
 
-fse.emptyDirSync(DIR);
+fse.emptyDirSync(DIST_DIR);
 
-const config = {
-  input: path.join(__dirname, 'src/main.js'),
+export default {
+  input: join(__dirname, 'src/main.js'),
   output: {
-    sourcemap: IS_DEV,
+    sourcemap: false,
     format: 'iife',
     name: 'app',
-    file: path.join(DIR, 'bundle.js'),
+    file: join(DIST_DIR, 'bundle.js'),
+  },
+  watch: {
+    clearScreen: false,
   },
   plugins: [
     svelte({
       dev: IS_DEV,
       emitCss: false,
-      css: css => css.write(path.join(DIR, 'bundle.css')),
+      css: css => css.write(join(DIST_DIR, 'bundle.css')),
     }),
     resolve({
       browser: true,
@@ -33,41 +36,39 @@ const config = {
     }),
     copy({
       targets: [
-        { src: 'public/**/*', dest: DIR },
+        {
+          src: 'public/**/*',
+          dest: DIST_DIR,
+        },
       ],
     }),
     commonjs(),
-  ],
-  watch: {
-    clearScreen: false,
-  },
-};
-
-if (IS_DEV) {
-  config.plugins.push(
-    livereload(DIR),
-  );
-} else {
-  config.plugins.push(
-    terser({
+    IS_DEV && livereload(DIST_DIR),
+    !IS_DEV && terser({
+      ecma: 8,
+      module: true,
+      toplevel: true,
       parse: {
-        ecma: 5,
+        ecma: 8,
       },
       compress: {
-        ecma: 5,
+        ecma: 8,
         warnings: false,
         comparisons: false,
         inline: 2,
         drop_console: true,
         passes: 3,
+        unsafe_methods: true,
+        module: true,
+        toplevel: true,
+        pure_getters: true,
+        unsafe: true,
+        unsafe_math: true,
       },
       output: {
-        ecma: 5,
+        ecma: 8,
         comments: false,
-        ascii_only: true,
       },
     }),
-  );
-}
-
-export default config;
+  ],
+};

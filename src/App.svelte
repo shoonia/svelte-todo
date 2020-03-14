@@ -1,7 +1,3 @@
-<script>
-  import Todo from './components/Todo.svelte';
-</script>
-
 <style>
   .main {
     max-width: 700px;
@@ -11,6 +7,6 @@
 
 <header />
 <main class="main">
-  <Todo />
+  Todo
 </main>
 <footer />
