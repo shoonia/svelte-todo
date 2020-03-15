@@ -8,7 +8,7 @@ const newItem = (text) => {
   };
 };
 
-export const todo = ({ on }) => {
+export const todo = ({ dispatch, on }) => {
   on('@init', () => {
     return {
       items: [],
@@ -27,25 +27,36 @@ export const todo = ({ on }) => {
     };
   });
 
-  on('items/edit', ({ items }, id) => {
+  on('items/@change', ({ items }, { id, ...data }) => {
     const index = items.findIndex((i) => i.id === id);
-    const editItem = { ...items[index], isEdit: true };
+    const updatedItem = { ...items[index], ...data };
 
-    items.splice(index, 1, editItem);
+    items.splice(index, 1, updatedItem);
 
     return {
       items: [...items],
     };
   });
 
-  on('items/update', ({ items }, { id, text }) => {
-    const index = items.findIndex((i) => i.id === id);
-    const updateItem = { ...items[index], text, isEdit: false };
+  on('items/openEdit', (_, id) => {
+    dispatch('items/@change', {
+      id,
+      isEdit: true,
+    });
+  });
 
-    items.splice(index, 1, updateItem);
+  on('items/closeEdit', (_, id) => {
+    dispatch('items/@change', {
+      id,
+      isEdit: false,
+    });
+  });
 
-    return {
-      items: [...items],
-    };
+  on('items/update', (_, { id, text }) => {
+    dispatch('items/@change', {
+      id,
+      text,
+      isEdit: false,
+    });
   });
 };

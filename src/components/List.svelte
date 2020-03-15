@@ -9,10 +9,10 @@
 
 <ul>
 {#if $items.length > 0}
-  {#each $items as data}
+  {#each $items as data (data.id)}
     <Item
-      data={data}
-      dispatch={dispatch}
+      {data}
+      {dispatch}
     />
   {/each}
 {:else}

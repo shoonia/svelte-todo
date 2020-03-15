@@ -1,9 +1,15 @@
 <script>
+  import Button from './Button.svelte';
+
   export let data;
   export let dispatch;
 
   const editItem = () => {
-    dispatch('items/edit', data.id);
+    dispatch('items/openEdit', data.id);
+  };
+
+  const closeEdit = () => {
+    dispatch('items/closeEdit', data.id);
   };
 
   const removeItem = () => {
@@ -15,6 +21,10 @@
       dispatch('items/update', { id: data.id, text: target.value });
     }
   };
+
+  const setFocuse = (input) => {
+    input.focus();
+  };
 </script>
 
 {#if data.isEdit}
@@ -22,23 +32,19 @@
     type="text"
     value={data.text}
     on:keypress={updateItem}
+    on:blur={closeEdit}
+    use:setFocuse
   />
 {:else}
 <li>
   <span>
     {data.text}
   </span>
-  <button
-    type="button"
-    on:click={editItem}
-  >
+  <Button onClick={editItem}>
     edit
-  </button>
-  <button
-    type="button"
-    on:click={removeItem}
-  >
+  </Button>
+  <Button onClick={removeItem}>
     remove
-  </button>
+  </Button>
 </li>
 {/if}
