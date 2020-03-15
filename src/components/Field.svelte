@@ -15,6 +15,13 @@
 
 <input
   type="text"
+  class="field"
   bind:value={value}
   on:keypress={addItem}
 />
+
+<style>
+  .field {
+    width: 100%;
+  }
+</style>

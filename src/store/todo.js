@@ -29,9 +29,8 @@ export const todo = ({ dispatch, on }) => {
 
   on('items/@change', ({ items }, { id, ...data }) => {
     const index = items.findIndex((i) => i.id === id);
-    const updatedItem = { ...items[index], ...data };
 
-    items.splice(index, 1, updatedItem);
+    items.splice(index, 1, { ...items[index], ...data });
 
     return {
       items: [...items],

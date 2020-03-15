@@ -7,7 +7,7 @@
   const { items, dispatch } = getStore('items');
 </script>
 
-<ul>
+<ul class="list">
 {#if $items.length > 0}
   {#each $items as data (data.id)}
     <Item
@@ -19,3 +19,11 @@
   <Empty />
 {/if}
 </ul>
+
+<style>
+  .list {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+  }
+</style>

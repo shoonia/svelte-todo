@@ -4,13 +4,14 @@
 
 <button
   type="button"
+  class="btn"
   on:click={onClick}
 >
   <slot />
 </button>
 
 <style>
-  button {
+  .btn {
     cursor: pointer;
   }
 </style>

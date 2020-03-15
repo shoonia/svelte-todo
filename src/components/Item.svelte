@@ -27,24 +27,46 @@
   };
 </script>
 
+<li class="item">
 {#if data.isEdit}
   <input
     type="text"
+    class="edit"
     value={data.text}
     on:keypress={updateItem}
     on:blur={closeEdit}
     use:setFocuse
   />
+  <Button>
+    Close
+  </Button>
 {:else}
-<li>
   <span>
     {data.text}
   </span>
-  <Button onClick={editItem}>
+  <div>
+    <Button onClick={editItem}>
     edit
-  </Button>
-  <Button onClick={removeItem}>
-    remove
-  </Button>
-</li>
+    </Button>
+    <Button onClick={removeItem}>
+      remove
+    </Button>
+  </div>
 {/if}
+</li>
+
+<style>
+  .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 5px 15px;
+    margin: 5px 0;
+  }
+
+  .edit {
+    width: 100%;
+    margin-right: 5px;
+  }
+</style>
