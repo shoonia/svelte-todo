@@ -1,4 +1,9 @@
 .main.svelte-f9kgaf{max-width:700px;margin:0 auto}
-button.svelte-cwlwa5{cursor:pointer}
+.field.svelte-ds0kos{width:100%}
+.list.svelte-96jcg8{list-style:none;padding:0;margin:16px 0}
+.empty.svelte-18fszsd{padding:0;margin:16px 0;text-align:center;color:rgba(0, 0, 0, 0.6)
+  }
+.item.svelte-hvwc4g{display:flex;justify-content:space-between;align-items:center;background-color:rgba(0, 0, 0, 0.05);padding:5px 15px;margin:5px 0}.edit.svelte-hvwc4g{width:100%;margin-right:5px}
+.btn.svelte-41dk2j{cursor:pointer}
 
 /*# sourceMappingURL=bundle.css.map */
