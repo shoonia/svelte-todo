@@ -2,11 +2,13 @@
   "version": 3,
   "file": "bundle.css",
   "sources": [
-    "../App.svelte"
+    "../App.svelte",
+    "../Button.svelte"
   ],
   "sourcesContent": [
-    "<script>\n  import { setStore } from '@storeon/svelte';\n\n  import { store } from './store';\n  import Field from './components/Field.svelte';\n  import List from './components/List.svelte';\n\n  setStore(store);\n</script>\n\n<style>\n  .main {\n    max-width: 700px;\n    margin: 0 auto;\n  }\n</style>\n\n<main class=\"main\">\n  <h1>Todo</h1>\n  <Field />\n  <List />\n</main>\n"
+    "<script>\n  import { setStore } from '@storeon/svelte';\n\n  import { store } from './store';\n  import Field from './components/Field.svelte';\n  import List from './components/List.svelte';\n\n  setStore(store);\n</script>\n\n<style>\n  .main {\n    max-width: 700px;\n    margin: 0 auto;\n  }\n</style>\n\n<main class=\"main\">\n  <h1>Todo</h1>\n  <Field />\n  <List />\n</main>\n",
+    "<script>\n  export let onClick;\n</script>\n\n<button\n  type=\"button\"\n  on:click={onClick}\n>\n  <slot />\n</button>\n\n<style>\n  button {\n    cursor: pointer;\n  }\n</style>\n"
   ],
   "names": [],
-  "mappings": "AAWE,KAAK,cAAC,CAAC,AACL,SAAS,CAAE,KAAK,CAChB,MAAM,CAAE,CAAC,CAAC,IAAI,AAChB,CAAC"
+  "mappings": "AAWE,KAAK,cAAC,CAAC,AACL,SAAS,CAAE,KAAK,CAChB,MAAM,CAAE,CAAC,CAAC,IAAI,AAChB,CAAC;ACFD,MAAM,cAAC,CAAC,AACN,MAAM,CAAE,OAAO,AACjB,CAAC"
 }
