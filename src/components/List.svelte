@@ -1,14 +1,21 @@
 <script>
   import { getStore } from '@storeon/svelte';
 
+  import Empty from './Empty.svelte';
   import Item from './Item.svelte';
 
-  const { items } = getStore('items');
-
+  const { items, dispatch } = getStore('items');
 </script>
 
 <ul>
-  {#each $items as { text }}
-    <Item text={text} />
+{#if $items.length > 0}
+  {#each $items as data}
+    <Item
+      data={data}
+      dispatch={dispatch}
+    />
   {/each}
+{:else}
+  <Empty />
+{/if}
 </ul>

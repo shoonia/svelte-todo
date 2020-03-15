@@ -6,7 +6,7 @@
   const { dispatch } = getStore();
 
   const addItem = ({ keyCode }) => {
-    if (keyCode === 13) {
+    if (keyCode === 13 && value.trim() !== '') {
       dispatch('items/add', value);
       value = '';
     }
