@@ -1,5 +1,9 @@
 import App from './App.svelte';
 
-export default new App({
-  target: document.getElementById('root'),
-});
+class Todo extends HTMLElement {
+  connectedCallback() {
+    new App({ target: this });
+  }
+}
+
+window.customElements.define('todo-app', Todo);
