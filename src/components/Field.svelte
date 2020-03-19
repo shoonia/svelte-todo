@@ -1,9 +1,9 @@
 <script>
-  import { getStore } from '@storeon/svelte';
+  import { useStoreon } from '@storeon/svelte';
 
   let value = '';
 
-  const { dispatch } = getStore();
+  const { dispatch } = useStoreon();
 
   const addItem = ({ keyCode }) => {
     if (keyCode === 13 && value.trim() !== '') {

@@ -1,11 +1,12 @@
 <script>
-  import { setStore } from '@storeon/svelte';
+  import { provideStoreon } from '@storeon/svelte';
 
-  import { store } from './store';
   import Field from './components/Field.svelte';
   import List from './components/List.svelte';
 
-  setStore(store);
+  export let store;
+
+  provideStoreon(store);
 </script>
 
 <style>

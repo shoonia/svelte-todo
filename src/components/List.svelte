@@ -1,10 +1,10 @@
 <script>
-  import { getStore } from '@storeon/svelte';
+  import { useStoreon } from '@storeon/svelte';
 
   import Empty from './Empty.svelte';
   import Item from './Item.svelte';
 
-  const { items, dispatch } = getStore('items');
+  const { items, dispatch } = useStoreon('items');
 </script>
 
 <ul class="list">
